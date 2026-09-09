@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plan comparison</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --border: #d0d7de;
+      --text: #1f2328;
+      --bg: #ffffff;
+      --muted: #57606a;
+      --highlight: #fff8c5;
+      --focus: #0969da;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 1.5rem;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .comparison {
+      max-width: 70rem;
+      margin: 0 auto;
+    }
+
+    h1 { margin-top: 0; }
+
+    .controls {
+      margin: 1rem 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text);
+    }
+
+    .controls input[type="checkbox"] {
+      width: 1rem;
+      height: 1rem;
+      margin: 0;
+    }
+
+    .controls input[type="checkbox"]:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+      border-radius: 0.15rem;
+    }
+
+    .control-note {
+      margin: 0.25rem 0 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .comparison-table caption {
+      text-align: left;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      border: 1px solid var(--border);
+      padding: 0.65rem;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+
+    .comparison-table thead th {
+      background: #f6f8fa;
+    }
+
+    .comparison-table th[scope="row"] {
+      text-align: left;
+      width: 28%;
+      background: #fbfcfd;
+      font-weight: 600;
+    }
+
+    .comparison-table.show-differences tbody tr:not(.has-difference) {
+      opacity: 0.4;
+    }
+
+    .comparison-table.show-differences tbody tr.has-difference {
+      background: var(--highlight);
+    }
+
+    @media (max-width: 48rem) {
+      .comparison-table,
+      .comparison-table tbody,
+      .comparison-table tr,
+      .comparison-table th,
+      .comparison-table td {
+        display: block;
+      }
+
+      .comparison-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        border: 0;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+
+      .comparison-table tr {
+        border: 1px solid var(--border);
+        margin-bottom: 0.75rem;
+      }
+
+      .comparison-table th[scope="row"] {
+        width: auto;
+        border: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .comparison-table td {
+        border: 0;
+        border-top: 1px solid var(--border);
+        display: flex;
+        gap: 0.5rem;
+        justify-content: space-between;
+      }
+
+      .comparison-table td::before {
+        content: attr(data-plan);
+        font-weight: 600;
+        color: var(--muted);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="comparison">
+    <h1>Compare plans</h1>
+
+    <div class="controls">
+      <input id="differences-only" type="checkbox" aria-describedby="difference-help">
+      <label for="differences-only">Highlight differences only</label>
+    </div>
+    <p id="difference-help" class="control-note">When enabled, equal rows are dimmed and rows with differences are highlighted.</p>
+
+    <table class="comparison-table" id="plan-comparison">
+      <caption>Starter, Growth, and Scale plans across key features</caption>
+      <thead>
+        <tr>
+          <th scope="col">Feature</th>
+          <th scope="col">Starter</th>
+          <th scope="col">Growth</th>
+          <th scope="col">Scale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Monthly price</th>
+          <td data-plan="Starter">$9</td>
+          <td data-plan="Growth">$29</td>
+          <td data-plan="Scale">$99</td>
+        </tr>
+        <tr>
+          <th scope="row">Team members</th>
+          <td data-plan="Starter">3</td>
+          <td data-plan="Growth">15</td>
+          <td data-plan="Scale">Unlimited</td>
+        </tr>
+        <tr>
+          <th scope="row">Projects</th>
+          <td data-plan="Starter">10</td>
+          <td data-plan="Growth">50</td>
+          <td data-plan="Scale">Unlimited</td>
+        </tr>
+        <tr>
+          <th scope="row">Storage</th>
+          <td data-plan="Starter">25 GB</td>
+          <td data-plan="Growth">250 GB</td>
+          <td data-plan="Scale">1 TB</td>
+        </tr>
+        <tr>
+          <th scope="row">Custom domains</th>
+          <td data-plan="Starter">1</td>
+          <td data-plan="Growth">5</td>
+          <td data-plan="Scale">20</td>
+        </tr>
+        <tr>
+          <th scope="row">API access</th>
+          <td data-plan="Starter">Yes</td>
+          <td data-plan="Growth">Yes</td>
+          <td data-plan="Scale">Yes</td>
+        </tr>
+        <tr>
+          <th scope="row">Single sign-on</th>
+          <td data-plan="Starter">No</td>
+          <td data-plan="Growth">Optional add-on</td>
+          <td data-plan="Scale">Included</td>
+        </tr>
+        <tr>
+          <th scope="row">Audit logs</th>
+          <td data-plan="Starter">7 days</td>
+          <td data-plan="Growth">30 days</td>
+          <td data-plan="Scale">365 days</td>
+        </tr>
+        <tr>
+          <th scope="row">Data export</th>
+          <td data-plan="Starter">CSV</td>
+          <td data-plan="Growth">CSV, JSON</td>
+          <td data-plan="Scale">CSV, JSON, Parquet</td>
+        </tr>
+        <tr>
+          <th scope="row">Automation rules</th>
+          <td data-plan="Starter">5</td>
+          <td data-plan="Growth">50</td>
+          <td data-plan="Scale">500</td>
+        </tr>
+        <tr>
+          <th scope="row">Support</th>
+          <td data-plan="Starter">Email</td>
+          <td data-plan="Growth">Priority email</td>
+          <td data-plan="Scale">24/7 phone &amp; email</td>
+        </tr>
+        <tr>
+          <th scope="row">Uptime SLA</th>
+          <td data-plan="Starter">99.5%</td>
+          <td data-plan="Growth">99.9%</td>
+          <td data-plan="Scale">99.95%</td>
+        </tr>
+        <tr>
+          <th scope="row">Onboarding</th>
+          <td data-plan="Starter">Guides</td>
+          <td data-plan="Growth">Guides + webinar</td>
+          <td data-plan="Scale">Dedicated manager</td>
+        </tr>
+        <tr>
+          <th scope="row">Contract term</th>
+          <td data-plan="Starter">Monthly</td>
+          <td data-plan="Growth">Monthly or annual</td>
+          <td data-plan="Scale">Annual</td>
+        </tr>
+        <tr>
+          <th scope="row">GDPR tools</th>
+          <td data-plan="Starter">Included</td>
+          <td data-plan="Growth">Included</td>
+          <td data-plan="Scale">Included</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <script>
+    (() => {
+      const table = document.getElementById('plan-comparison');
+      const toggle = document.getElementById('differences-only');
+      const rows = Array.from(table.tBodies[0].rows);
+
+      rows.forEach((row) => {
+        const values = Array.from(row.cells).map((cell) => cell.textContent.trim());
+        const allEqual = values.every((value) => value === values[0]);
+        row.classList.toggle('has-difference', !allEqual);
+      });
+
+      toggle.addEventListener('change', () => {
+        table.classList.toggle('show-differences', toggle.checked);
+      });
+    })();
+  </script>
+</body>
+</html>
